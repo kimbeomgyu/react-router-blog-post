@@ -13,7 +13,7 @@ ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
     <Router>
       <Route exact path="/" component={App} />
-      <Route path="/post/new" component={PostsNew} />
+      <Route path="/posts/new" component={PostsNew} />
     </Router>
   </Provider>,
   document.querySelector('.container')

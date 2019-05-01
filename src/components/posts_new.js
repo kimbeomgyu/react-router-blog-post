@@ -1,19 +1,26 @@
 import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
+import { createPost } from '../actions/index';
 
 class PostsNew extends Component {
+  handleSubmit(formValues) {
+    return formValues;
+    //do what ever you want
+  }
+
   render() {
     const {
-      fields: { title, categories, content },
-      handleSubmit
+      fields: { title, categories, content }
     } = this.props;
 
     return (
-      <form onSubmit={handleSubmit}>
-        <h3>Create A New Post</h3>
+      <form onSubmit={this.handleSubmit(createPost)}>
+        <h3>Create a new Post</h3>
+
         <div className="form-group">
           <label>Title</label>
           <input type="text" className="form-control" {...title} />
+          <div className="text-help">{title}</div>
         </div>
 
         <div className="form-group">
@@ -25,7 +32,6 @@ class PostsNew extends Component {
           <label>Content</label>
           <textarea className="form-control" {...content} />
         </div>
-
         <button type="submit" className="btn btn-primary">
           Submit
         </button>
@@ -34,7 +40,21 @@ class PostsNew extends Component {
   }
 }
 
-export default reduxForm({
-  form: 'PostNewForm',
-  fields: ['title', 'categories', 'content']
-})(PostsNew);
+function validate(values) {
+  const errors = {};
+  console.log(values.title);
+  if (!values.title) {
+    errors.title = 'Enter a username';
+  }
+  return errors;
+}
+
+export default reduxForm(
+  {
+    form: 'PostsNewForm',
+    validate,
+    fields: ['title', 'categories', 'content']
+  },
+  null,
+  { createPost }
+)(PostsNew);

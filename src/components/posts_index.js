@@ -4,15 +4,18 @@ import { fetchPosts } from '../actions/index';
 import { Link } from 'react-router-dom';
 
 class PostsIndex extends Component {
-  componentDidMount() {
+  componentWillMount() {
     this.props.fetchPosts();
   }
+
   render() {
     return (
-      <div className="text-xs-right">
-        <Link to="/post/new" className="btn btn-primary">
-          Add a Post
-        </Link>
+      <div>
+        <div className="text-xs-right">
+          <Link to="/posts/new" className="btn btn-primary">
+            Add a Post
+          </Link>
+        </div>
       </div>
     );
   }
